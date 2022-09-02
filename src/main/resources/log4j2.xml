@@ -4,14 +4,14 @@
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %c:%L - %msg%n"/>
         </Console>
-        <File name="LogToFile" fileName="D:\logs\cinema_app_logs.log">
+        <File name="LogToFile" fileName="add\path\to\directory\here\cinema_app_logs.log">
             <PatternLayout>
                 <Pattern>%d %p %c:%L %m%n</Pattern>
             </PatternLayout>
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="taxi" level="info" additivity="false">
+        <Logger name="cinema" level="info" additivity="false">
             <Appender-ref ref="LogToConsole"/>
             <Appender-ref ref="LogToFile"/>
         </Logger>
