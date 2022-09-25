@@ -2,6 +2,7 @@ package cinema.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,14 +17,15 @@ import javax.persistence.Table;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
     @JoinTable(name = "orders_tickets",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "ticket_id"))
     private List<Ticket> tickets;
-    private LocalDateTime orderDate;
+    @Column(name = "order_time")
+    private LocalDateTime orderTime;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -44,6 +46,14 @@ public class Order {
         this.tickets = tickets;
     }
 
+    public LocalDateTime getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(LocalDateTime orderTime) {
+        this.orderTime = orderTime;
+    }
+
     public User getUser() {
         return user;
     }
@@ -52,20 +62,12 @@ public class Order {
         this.user = user;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
     @Override
     public String toString() {
         return "Order{"
                 + "id=" + id
                 + ", tickets=" + tickets
-                + ", orderDate=" + orderDate
+                + ", orderTime=" + orderTime
                 + ", user=" + user + '}';
     }
 }
