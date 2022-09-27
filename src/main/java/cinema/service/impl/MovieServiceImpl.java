@@ -1,29 +1,38 @@
 package cinema.service.impl;
 
 import cinema.dao.MovieDao;
-import cinema.lib.Inject;
-import cinema.lib.Service;
 import cinema.model.Movie;
 import cinema.service.MovieService;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MovieServiceImpl implements MovieService {
-    @Inject
-    private MovieDao movieDao;
+    private static final Logger LOGGER = LogManager.getLogger(MovieServiceImpl.class);
+    private final MovieDao movieDao;
+
+    public MovieServiceImpl(MovieDao movieDao) {
+        this.movieDao = movieDao;
+    }
 
     @Override
     public Movie add(Movie movie) {
+        LOGGER.info("Added {}", movie);
         return movieDao.add(movie);
     }
 
     @Override
     public Movie get(Long id) {
-        return movieDao.get(id).get();
+        LOGGER.info("Found movie by ID: {}",id);
+        return movieDao.get(id).orElseThrow(
+                () -> new RuntimeException("Can't get movie by id " + id));
     }
 
     @Override
     public List<Movie> getAll() {
+        LOGGER.info("Found all movies. {}", movieDao.getAll());
         return movieDao.getAll();
     }
 }

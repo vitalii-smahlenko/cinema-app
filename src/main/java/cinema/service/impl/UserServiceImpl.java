@@ -1,27 +1,45 @@
 package cinema.service.impl;
 
 import cinema.dao.UserDao;
-import cinema.lib.Inject;
-import cinema.lib.Service;
 import cinema.model.User;
 import cinema.service.UserService;
-import cinema.util.HashUtil;
 import java.util.Optional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Inject
-    private UserDao userDao;
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+    private final PasswordEncoder encoder;
+    private final UserDao userDao;
+
+    public UserServiceImpl(PasswordEncoder encoder, UserDao userDao) {
+        this.encoder = encoder;
+        this.userDao = userDao;
+    }
 
     @Override
     public User add(User user) {
-        user.setSalt(HashUtil.getSalt());
-        user.setPassword(HashUtil.hashPassword(user.getPassword(), user.getSalt()));
-        return userDao.add(user);
+        user.setPassword(encoder.encode(user.getPassword()));
+        User newUser = userDao.add(user);
+        LOGGER.info("Add {}", newUser.toString());
+        return newUser;
+    }
+
+    @Override
+    public User get(Long id) {
+        User user = userDao.get(id).orElseThrow(
+                () -> new RuntimeException("User with id " + id + " not found"));
+        LOGGER.info("Found {} by ID: {}", user.toString(), id);
+        return user;
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return userDao.findByEmail(email);
+        Optional<User> userByEmail = userDao.findByEmail(email);
+        LOGGER.info("Found {} by emil {}", userByEmail.get().toString(), email);
+        return userByEmail;
     }
 }
