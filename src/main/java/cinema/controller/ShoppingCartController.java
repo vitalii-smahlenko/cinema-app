@@ -8,6 +8,8 @@ import cinema.service.MovieSessionService;
 import cinema.service.ShoppingCartService;
 import cinema.service.UserService;
 import cinema.service.mapper.ResponseDtoMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/shopping-carts")
 public class ShoppingCartController {
+    private static final Logger LOGGER = LogManager.getLogger(ShoppingCartController.class);
     private final ShoppingCartService shoppingCartService;
     private final MovieSessionService movieSessionService;
     private final UserService userService;
@@ -28,8 +31,8 @@ public class ShoppingCartController {
     public ShoppingCartController(ShoppingCartService shoppingCartService,
                                   UserService userService,
                                   MovieSessionService movieSessionService,
-            ResponseDtoMapper<ShoppingCartResponseDto, ShoppingCart>
-                                      shoppingCartResponseDtoMapper) {
+                                  ResponseDtoMapper<ShoppingCartResponseDto, ShoppingCart>
+                                          shoppingCartResponseDtoMapper) {
         this.shoppingCartService = shoppingCartService;
         this.userService = userService;
         this.movieSessionService = movieSessionService;
@@ -44,6 +47,8 @@ public class ShoppingCartController {
                 () -> new RuntimeException("User with email " + email + " not found"));
         MovieSession movieSession = movieSessionService.get(movieSessionId);
         shoppingCartService.addSession(movieSession, user);
+        LOGGER.info("Movie session {} add to shopping cart user {}.", movieSession.toString(),
+                user.toString());
     }
 
     @GetMapping("/by-user")
@@ -52,6 +57,7 @@ public class ShoppingCartController {
         String email = details.getUsername();
         User user = userService.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("User with email " + email + " not found"));
+        LOGGER.info("User {} get shopping cart.", user.toString());
         return shoppingCartResponseDtoMapper.mapToDto(shoppingCartService.getByUser(user));
     }
 }

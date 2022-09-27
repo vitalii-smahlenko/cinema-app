@@ -6,10 +6,13 @@ import cinema.service.RoleService;
 import cinema.service.UserService;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataInitializer {
+    private static final Logger LOGGER = LogManager.getLogger(DataInitializer.class);
     private final RoleService roleService;
     private final UserService userService;
 
@@ -31,5 +34,6 @@ public class DataInitializer {
         user.setPassword("1234");
         user.setRoles(Set.of(adminRole));
         userService.add(user);
+        LOGGER.info("Admin added to DB.");
     }
 }

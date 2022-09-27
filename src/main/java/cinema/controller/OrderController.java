@@ -10,6 +10,8 @@ import cinema.service.UserService;
 import cinema.service.mapper.ResponseDtoMapper;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
+    private static final Logger LOGGER = LogManager.getLogger(OrderController.class);
     private final ShoppingCartService shoppingCartService;
     private final OrderService orderService;
     private final UserService userService;
@@ -40,6 +43,7 @@ public class OrderController {
         User user = userService.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("User with email " + email + " not found"));
         ShoppingCart cart = shoppingCartService.getByUser(user);
+        LOGGER.info("Complete order for {}", user.toString());
         return orderResponseDtoMapper.mapToDto(orderService.completeOrder(cart));
     }
 
@@ -48,6 +52,7 @@ public class OrderController {
         String email = auth.getName();
         User user = userService.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("User with email " + email + " not found"));
+        LOGGER.info("Found order history by {}", user.toString());
         return orderService.getOrdersHistory(user)
                 .stream()
                 .map(orderResponseDtoMapper::mapToDto)

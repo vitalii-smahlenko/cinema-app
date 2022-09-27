@@ -23,4 +23,12 @@ public class MovieSessionRequestDto {
     public LocalDateTime getShowTime() {
         return showTime;
     }
+
+    @Override
+    public String toString() {
+        return "MovieSessionRequestDto{"
+                + "movieId: " + movieId
+                + ", cinemaHallId:" + cinemaHallId
+                + ", showTime: " + showTime + '}';
+    }
 }

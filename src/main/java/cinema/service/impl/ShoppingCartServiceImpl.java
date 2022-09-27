@@ -7,10 +7,13 @@ import cinema.model.ShoppingCart;
 import cinema.model.Ticket;
 import cinema.model.User;
 import cinema.service.ShoppingCartService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
+    private static final Logger LOGGER = LogManager.getLogger(ShoppingCartServiceImpl.class);
     private final ShoppingCartDao shoppingCartDao;
     private final TicketDao ticketDao;
 
@@ -27,24 +30,31 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = shoppingCartDao.getByUser(user);
         ticketDao.add(ticket);
         shoppingCart.getTickets().add(ticket);
-        shoppingCartDao.update(shoppingCart);
+        ShoppingCart updatedShoppingCart = shoppingCartDao.update(shoppingCart);
+        LOGGER.info("Added movieSession {} to shopping cart {} user {}.",
+                movieSession.toString(), updatedShoppingCart.toString(), user.toString());
     }
 
     @Override
     public ShoppingCart getByUser(User user) {
-        return shoppingCartDao.getByUser(user);
+        ShoppingCart shoppingCartByUser = shoppingCartDao.getByUser(user);
+        LOGGER.info("Find {} by {}.", shoppingCartByUser.toString(), user.toString());
+        return shoppingCartByUser;
     }
 
     @Override
     public void registerNewShoppingCart(User user) {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
-        shoppingCartDao.add(shoppingCart);
+        ShoppingCart newShoppingCart = shoppingCartDao.add(shoppingCart);
+        LOGGER.info("Added {} to {}", newShoppingCart.toString(), user.toString());
     }
 
     @Override
     public void clear(ShoppingCart shoppingCart) {
         shoppingCart.setTickets(null);
-        shoppingCartDao.update(shoppingCart);
+        ShoppingCart updatedShoppingCart = shoppingCartDao.update(shoppingCart);
+        LOGGER.info("Updated {}. New value {}.", shoppingCart.toString(),
+                updatedShoppingCart.toString());
     }
 }
