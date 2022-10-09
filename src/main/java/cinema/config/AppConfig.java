@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @PropertySource("classpath:db.properties")
 @ComponentScan(basePackages = "cinema")
 public class AppConfig {
-    private final Environment environment;
     private static final Logger LOGGER = LogManager.getLogger(AppConfig.class);
+    private final Environment environment;
 
     public AppConfig(Environment environment) {
         this.environment = environment;

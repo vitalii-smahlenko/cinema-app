@@ -3,6 +3,8 @@ package cinema.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import cinema.dao.RoleDao;
 import cinema.model.Role;
@@ -12,7 +14,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class RoleServiceImplTest {
     private static final String ROLE_MANE = "USER";
@@ -22,7 +23,7 @@ class RoleServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        roleDao = Mockito.mock(RoleDao.class);
+        roleDao = mock(RoleDao.class);
         roleService = new RoleServiceImpl(roleDao);
 
         expected = new Role();
@@ -31,7 +32,7 @@ class RoleServiceImplTest {
 
     @Test
     void add_ok() {
-        Mockito.when(roleDao.add(any())).thenReturn(expected);
+        when(roleDao.add(any())).thenReturn(expected);
 
         Role actual = roleService.add(expected);
 
@@ -40,7 +41,7 @@ class RoleServiceImplTest {
 
     @Test
     void getByName_ok() {
-        Mockito.when(roleDao.getByName(ROLE_MANE)).thenReturn(Optional.ofNullable(expected));
+        when(roleDao.getByName(ROLE_MANE)).thenReturn(Optional.ofNullable(expected));
 
         Role actual = roleService.getByName(ROLE_MANE);
 

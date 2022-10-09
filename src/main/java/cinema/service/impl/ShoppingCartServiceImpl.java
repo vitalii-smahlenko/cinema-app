@@ -32,13 +32,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCart.getTickets().add(ticket);
         ShoppingCart updatedShoppingCart = shoppingCartDao.update(shoppingCart);
         LOGGER.info("Added movieSession {} to shopping cart {} user {}.",
-                movieSession.toString(), updatedShoppingCart.toString(), user.toString());
+                movieSession, updatedShoppingCart, user);
     }
 
     @Override
     public ShoppingCart getByUser(User user) {
         ShoppingCart shoppingCartByUser = shoppingCartDao.getByUser(user);
-        LOGGER.info("Find {} by {}.", shoppingCartByUser.toString(), user.toString());
+        LOGGER.info("Find {} by {}.", shoppingCartByUser, user);
         return shoppingCartByUser;
     }
 
@@ -47,14 +47,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
         ShoppingCart newShoppingCart = shoppingCartDao.add(shoppingCart);
-        LOGGER.info("Added {} to {}", newShoppingCart.toString(), user.toString());
+        LOGGER.info("Added {} to {}", newShoppingCart, user);
     }
 
     @Override
     public void clear(ShoppingCart shoppingCart) {
         shoppingCart.setTickets(null);
         ShoppingCart updatedShoppingCart = shoppingCartDao.update(shoppingCart);
-        LOGGER.info("Updated {}. New value {}.", shoppingCart.toString(),
-                updatedShoppingCart.toString());
+        LOGGER.info("Updated {}. New value {}.", shoppingCart,
+                updatedShoppingCart);
     }
 }

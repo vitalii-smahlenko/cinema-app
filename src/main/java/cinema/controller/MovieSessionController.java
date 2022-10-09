@@ -35,8 +35,9 @@ public class MovieSessionController {
             movieSessionResponseDtoMapper;
 
     public MovieSessionController(MovieSessionService movieSessionService,
-              RequestDtoMapper<MovieSessionRequestDto, MovieSession> movieSessionRequestDtoMapper,
-              ResponseDtoMapper<MovieSessionResponseDto, MovieSession>
+                                  RequestDtoMapper<MovieSessionRequestDto, MovieSession>
+                                          movieSessionRequestDtoMapper,
+                                  ResponseDtoMapper<MovieSessionResponseDto, MovieSession>
                                           movieSessionResponseDtoMapper) {
         this.movieSessionService = movieSessionService;
         this.movieSessionRequestDtoMapper = movieSessionRequestDtoMapper;
@@ -47,13 +48,13 @@ public class MovieSessionController {
     public MovieSessionResponseDto add(@RequestBody @Valid MovieSessionRequestDto requestDto) {
         MovieSession movieSession = movieSessionRequestDtoMapper.mapToModel(requestDto);
         movieSessionService.add(movieSession);
-        LOGGER.info("Added {}", movieSession.toString() );
+        LOGGER.info("Added {}", movieSession.toString());
         return movieSessionResponseDtoMapper.mapToDto(movieSession);
     }
 
     @GetMapping("/available")
     public List<MovieSessionResponseDto> findAvailableSessions(@RequestParam Long movieId,
-                                                               @RequestParam
+                       @RequestParam
                        @DateTimeFormat(pattern = DateTimePatternUtil.DATE_PATTERN) LocalDate date) {
         LOGGER.info("Found available movie sessions with param movieId: {} and date {} "
                 + "was called.", movieId, date.toString());

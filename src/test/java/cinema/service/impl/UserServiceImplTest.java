@@ -3,6 +3,8 @@ package cinema.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import cinema.dao.UserDao;
 import cinema.model.User;
@@ -11,7 +13,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 class UserServiceImplTest {
@@ -25,8 +26,8 @@ class UserServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        userDao = Mockito.mock(UserDao.class);
-        passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        userDao = mock(UserDao.class);
+        passwordEncoder = mock(PasswordEncoder.class);
         userService = new UserServiceImpl(passwordEncoder, userDao);
 
         expected = new User();
@@ -36,7 +37,7 @@ class UserServiceImplTest {
 
     @Test
     void add_ok() {
-        Mockito.when(userDao.add(any())).thenReturn(expected);
+        when(userDao.add(any())).thenReturn(expected);
 
         User actual = userService.add(expected);
 
@@ -45,7 +46,7 @@ class UserServiceImplTest {
 
     @Test
     void findByEmail_ok() {
-        Mockito.when(userDao.findByEmail(any())).thenReturn(Optional.of(expected));
+        when(userDao.findByEmail(any())).thenReturn(Optional.of(expected));
 
         User actual = userService.findByEmail(EMAIL).get();
 
@@ -66,7 +67,7 @@ class UserServiceImplTest {
 
     @Test
     void get_ok() {
-        Mockito.when(userDao.get(USER_ID)).thenReturn(Optional.of(expected));
+        when(userDao.get(USER_ID)).thenReturn(Optional.of(expected));
 
         User actual = userService.get(USER_ID);
 
