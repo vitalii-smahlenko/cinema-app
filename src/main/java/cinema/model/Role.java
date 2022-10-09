@@ -1,5 +1,6 @@
 package cinema.model;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -51,16 +52,12 @@ public class Role {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Role)) {
             return false;
         }
-
         Role role = (Role) o;
-
-        if (id != null ? !id.equals(role.id) : role.id != null) {
-            return false;
-        }
-        return roleName == role.roleName;
+        return Objects.equals(this.id, role.id)
+                && Objects.equals(this.roleName, role.roleName);
     }
 
     @Override

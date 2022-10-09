@@ -1,6 +1,7 @@
 package cinema.model;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -55,5 +56,28 @@ public class ShoppingCart {
                 + "id=" + id
                 + ", tickets=" + tickets
                 + ", user=" + user + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ShoppingCart)) {
+            return false;
+        }
+        ShoppingCart other = (ShoppingCart) o;
+        return Objects.equals(this.id, other.id)
+                && Objects.equals(this.tickets, other.tickets)
+                && Objects.equals(this.user, other.user);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
     }
 }
