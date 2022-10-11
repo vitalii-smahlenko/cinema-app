@@ -32,14 +32,14 @@ public class UserServiceImpl implements UserService {
     public User get(Long id) {
         User user = userDao.get(id).orElseThrow(
                 () -> new RuntimeException("User with id " + id + " not found"));
-        LOGGER.info("Found {} by ID: {}", user.toString(), id);
+        LOGGER.info("Found {} by ID: {}", user, id);
         return user;
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
         Optional<User> userByEmail = userDao.findByEmail(email);
-        LOGGER.info("Found {} by emil {}", userByEmail.get().toString(), email);
+        LOGGER.info("Found {} by emil {}", userByEmail.get(), email);
         return userByEmail;
     }
 }

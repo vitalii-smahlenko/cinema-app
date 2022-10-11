@@ -84,7 +84,6 @@ public class Order {
         return Objects.equals(this.id, other.id)
                 && Objects.equals(this.orderTime, other.orderTime)
                 && Objects.equals(this.tickets, other.tickets)
-                && Objects.equals(this.tickets, other.orderTime)
                 && Objects.equals(this.user, other.user);
     }
 

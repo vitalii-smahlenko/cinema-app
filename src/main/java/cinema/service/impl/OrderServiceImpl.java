@@ -29,18 +29,16 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderTime(LocalDateTime.now());
         order.setTickets(shoppingCart.getTickets());
         order.setUser(shoppingCart.getUser());
-        orderDao.add(order);
+        Order orderFromDb = orderDao.add(order);
         shoppingCartService.clear(shoppingCart);
-        LOGGER.info("Completed order {} to cart {}.", order.toString(),
-                shoppingCart.toString());
-        return order;
+        LOGGER.info("Completed order {} to cart {}.", orderFromDb, shoppingCart);
+        return orderFromDb;
     }
 
     @Override
     public List<Order> getOrdersHistory(User user) {
         List<Order> getOrdersHistoryByUser = orderDao.getOrdersHistory(user);
-        LOGGER.info("Found orders history {} by user {}", getOrdersHistoryByUser,
-                user.toString());
+        LOGGER.info("Found orders history {} by user {}", getOrdersHistoryByUser, user);
         return getOrdersHistoryByUser;
     }
 }

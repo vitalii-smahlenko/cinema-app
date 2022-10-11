@@ -37,6 +37,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUser(User user) {
+        isNotNull(user);
         ShoppingCart shoppingCartByUser = shoppingCartDao.getByUser(user);
         LOGGER.info("Find {} by {}.", shoppingCartByUser, user);
         return shoppingCartByUser;
@@ -44,6 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void registerNewShoppingCart(User user) {
+        isNotNull(user);
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
         ShoppingCart newShoppingCart = shoppingCartDao.add(shoppingCart);
@@ -52,9 +54,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void clear(ShoppingCart shoppingCart) {
+        isNotNull(shoppingCart);
         shoppingCart.setTickets(null);
         ShoppingCart updatedShoppingCart = shoppingCartDao.update(shoppingCart);
         LOGGER.info("Updated {}. New value {}.", shoppingCart,
                 updatedShoppingCart);
+    }
+
+    private void isNotNull(Object o) {
+        if (o == null) {
+            throw new IllegalArgumentException(o + " can't be null");
+        }
     }
 }

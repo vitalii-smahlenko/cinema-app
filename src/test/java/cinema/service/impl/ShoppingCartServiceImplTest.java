@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import cinema.dao.ShoppingCartDao;
@@ -24,6 +25,8 @@ import org.mockito.Mockito;
 
 class ShoppingCartServiceImplTest {
     private static final Long ID = 1L;
+    private static final String USER_EMAIL = "email@email.com";
+    private static final String PASSWORD = "12345678";
     private ShoppingCartService shoppingCartService;
     private ShoppingCartDao shoppingCartDao;
     private User user;
@@ -36,13 +39,10 @@ class ShoppingCartServiceImplTest {
         TicketDao ticketDao = Mockito.mock(TicketDao.class);
         shoppingCartService = new ShoppingCartServiceImpl(shoppingCartDao, ticketDao);
 
-        Role role = new Role();
-        role.setRoleName(RoleName.USER);
         user = new User();
         user.setId(ID);
-        user.setEmail("email@email.com");
-        user.setPassword("12345678");
-        user.setRoles(Set.of(role));
+        user.setEmail(USER_EMAIL);
+        user.setPassword(PASSWORD);
 
         List<Ticket> tickets = new ArrayList<>();
         tickets.add(new Ticket());
@@ -59,7 +59,7 @@ class ShoppingCartServiceImplTest {
 
         shoppingCartService.addSession(movieSession, user);
 
-        Mockito.verify(shoppingCartDao, times(1)).update(any());
+        verify(shoppingCartDao, times(1)).update(any());
     }
 
     @Test
@@ -73,14 +73,8 @@ class ShoppingCartServiceImplTest {
 
     @Test
     void getByUser_userNull_notOk() {
-        assertThrows(NullPointerException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> shoppingCartService.getByUser(null));
-    }
-
-    @Test
-    void getByUser_userNotExistInDb_notOk() {
-        assertThrows(NullPointerException.class,
-                () -> shoppingCartService.getByUser(user));
     }
 
     @Test
@@ -89,19 +83,14 @@ class ShoppingCartServiceImplTest {
 
         shoppingCartService.registerNewShoppingCart(user);
 
-        Mockito.verify(shoppingCartDao, times(1)).add(any());
+        verify(shoppingCartDao, times(1)).add(any());
     }
 
+    // Q
     @Test
     void registerNewShoppingCart_userNull_notOk() {
-        assertThrows(NullPointerException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> shoppingCartService.registerNewShoppingCart(null));
-    }
-
-    @Test
-    void registerNewShoppingCart_userNotExistInDb_notOk() {
-        assertThrows(NullPointerException.class,
-                () -> shoppingCartService.registerNewShoppingCart(user));
     }
 
     @Test
@@ -110,18 +99,13 @@ class ShoppingCartServiceImplTest {
 
         shoppingCartService.clear(expected);
 
-        Mockito.verify(shoppingCartDao, times(1)).update(any());
+        verify(shoppingCartDao, times(1)).update(any());
     }
 
+    // Q
     @Test
     void clear_shoppingCartNull_notOk() {
-        assertThrows(NullPointerException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> shoppingCartService.clear(null));
-    }
-
-    @Test
-    void clear_shoppingCartNotExisteInDb_notOk() {
-        assertThrows(NullPointerException.class,
-                () -> shoppingCartService.clear(expected));
     }
 }

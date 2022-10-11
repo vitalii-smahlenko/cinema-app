@@ -37,7 +37,7 @@ public class CinemaHallController {
     public CinemaHallResponseDto add(@RequestBody @Valid CinemaHallRequestDto requestDto) {
         CinemaHall cinemaHall = cinemaHallService.add(
                 cinemaHallRequestDtoMapper.mapToModel(requestDto));
-        LOGGER.info("Added: {}", cinemaHall.toString());
+        LOGGER.info("Added: {}", cinemaHall);
         return cinemaHallResponseDtoMapper.mapToDto(cinemaHall);
     }
 

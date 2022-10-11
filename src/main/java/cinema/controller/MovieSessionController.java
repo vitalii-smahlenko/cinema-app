@@ -71,7 +71,7 @@ public class MovieSessionController {
         movieSession.setId(id);
         MovieSession updatedMovieSession = movieSessionService.update(movieSession);
         LOGGER.info("Updated movie session by ID: {}. New value {}",
-                id, updatedMovieSession.toString());
+                id, updatedMovieSession);
         return movieSessionResponseDtoMapper.mapToDto(movieSession);
     }
 
