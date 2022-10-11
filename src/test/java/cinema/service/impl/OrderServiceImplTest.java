@@ -3,7 +3,6 @@ package cinema.service.impl;
 import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 
@@ -60,7 +59,6 @@ class OrderServiceImplTest {
         shoppingCart.setUser(user);
 
         when(orderDao.add(any())).thenReturn(expected);
-        doNothing().when(shoppingCartService).clear(shoppingCart);
 
         Order actual = orderService.completeOrder(shoppingCart);
 

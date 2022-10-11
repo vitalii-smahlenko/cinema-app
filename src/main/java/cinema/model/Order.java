@@ -82,9 +82,9 @@ public class Order {
         }
         Order other = (Order) o;
         return Objects.equals(this.id, other.id)
-                && Objects.equals(this.orderTime, other.orderTime)
+                && Objects.equals(this.user, other.user)
                 && Objects.equals(this.tickets, other.tickets)
-                && Objects.equals(this.user, other.user);
+                && Objects.equals(this.orderTime, other.orderTime);
     }
 
     @Override
