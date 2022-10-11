@@ -72,40 +72,20 @@ class ShoppingCartServiceImplTest {
     }
 
     @Test
-    void getByUser_userNull_notOk() {
-        assertThrows(IllegalArgumentException.class,
-                () -> shoppingCartService.getByUser(null));
-    }
-
-    @Test
     void registerNewShoppingCart_ok() {
-        when(shoppingCartDao.add(any())).thenReturn(expected);
+        when(shoppingCartDao.add(expected)).thenReturn(expected);
 
         shoppingCartService.registerNewShoppingCart(user);
 
         verify(shoppingCartDao, times(1)).add(any());
     }
 
-    // Q
-    @Test
-    void registerNewShoppingCart_userNull_notOk() {
-        assertThrows(IllegalArgumentException.class,
-                () -> shoppingCartService.registerNewShoppingCart(null));
-    }
-
     @Test
     void clear_ok() {
-        when(shoppingCartDao.update(any())).thenReturn(expected);
+        when(shoppingCartDao.update(expected)).thenReturn(expected);
 
         shoppingCartService.clear(expected);
 
         verify(shoppingCartDao, times(1)).update(any());
-    }
-
-    // Q
-    @Test
-    void clear_shoppingCartNull_notOk() {
-        assertThrows(IllegalArgumentException.class,
-                () -> shoppingCartService.clear(null));
     }
 }

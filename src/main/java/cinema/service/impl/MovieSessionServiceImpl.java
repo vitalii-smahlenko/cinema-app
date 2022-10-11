@@ -41,8 +41,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     @Override
     public MovieSession update(MovieSession movieSession) {
         MovieSession updatedMovieSession = movieSessionDao.update(movieSession);
-        LOGGER.info("Updated {}. New value {}.", movieSession.toString(),
-                updatedMovieSession.toString());
+        LOGGER.info("Updated {}. New value {}.", movieSession, updatedMovieSession);
         return updatedMovieSession;
     }
 
