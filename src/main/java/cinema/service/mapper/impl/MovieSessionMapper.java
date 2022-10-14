@@ -1,10 +1,12 @@
-package cinema.service.mapper;
+package cinema.service.mapper.impl;
 
 import cinema.dto.request.MovieSessionRequestDto;
 import cinema.dto.response.MovieSessionResponseDto;
 import cinema.model.MovieSession;
 import cinema.service.CinemaHallService;
 import cinema.service.MovieService;
+import cinema.service.mapper.RequestDtoMapper;
+import cinema.service.mapper.ResponseDtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,11 +21,11 @@ public class MovieSessionMapper implements RequestDtoMapper<MovieSessionRequestD
     }
 
     @Override
-    public MovieSession mapToModel(MovieSessionRequestDto dto) {
+    public MovieSession mapToModel(MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = new MovieSession();
-        movieSession.setMovie(movieService.get(dto.getMovieId()));
-        movieSession.setCinemaHall(cinemaHallService.get(dto.getCinemaHallId()));
-        movieSession.setShowTime(dto.getShowTime());
+        movieSession.setMovie(movieService.get(movieSessionRequestDto.getMovieId()));
+        movieSession.setCinemaHall(cinemaHallService.get(movieSessionRequestDto.getCinemaHallId()));
+        movieSession.setShowTime(movieSessionRequestDto.getShowTime());
         return movieSession;
     }
 

@@ -29,10 +29,10 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderTime(LocalDateTime.now());
         order.setTickets(shoppingCart.getTickets());
         order.setUser(shoppingCart.getUser());
-        Order orderFromDb = orderDao.add(order);
+        order = orderDao.add(order);
         shoppingCartService.clear(shoppingCart);
-        LOGGER.info("Completed order {} to cart {}.", orderFromDb, shoppingCart);
-        return orderFromDb;
+        LOGGER.info("Completed order {} to cart {}.", order, shoppingCart);
+        return order;
     }
 
     @Override

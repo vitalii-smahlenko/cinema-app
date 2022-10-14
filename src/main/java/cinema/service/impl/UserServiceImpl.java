@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long id) {
+        LOGGER.info("Method get was called with ID: {}", id);
         User user = userDao.get(id).orElseThrow(
                 () -> new RuntimeException("User with id " + id + " not found"));
         LOGGER.info("Found {} by ID: {}", user, id);

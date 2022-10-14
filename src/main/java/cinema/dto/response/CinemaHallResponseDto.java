@@ -1,5 +1,7 @@
 package cinema.dto.response;
 
+import java.util.Objects;
+
 public class CinemaHallResponseDto {
     private Long id;
     private int capacity;
@@ -27,5 +29,27 @@ public class CinemaHallResponseDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CinemaHallResponseDto)) {
+            return false;
+        }
+        CinemaHallResponseDto other = (CinemaHallResponseDto) o;
+        return Objects.equals(this.id, other.id)
+                && Objects.equals(this.capacity, other.capacity)
+                && Objects.equals(this.description, other.description);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + capacity;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }

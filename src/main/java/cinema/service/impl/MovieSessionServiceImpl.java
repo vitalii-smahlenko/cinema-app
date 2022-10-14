@@ -33,9 +33,11 @@ public class MovieSessionServiceImpl implements MovieSessionService {
 
     @Override
     public MovieSession get(Long id) {
-        LOGGER.info("Found movie session by ID: {}.", id);
-        return movieSessionDao.get(id).orElseThrow(
+        LOGGER.info("Method get was called with ID: {}", id);
+        MovieSession movieSession = movieSessionDao.get(id).orElseThrow(
                 () -> new RuntimeException("Session with id " + id + " not found"));
+        LOGGER.info("Found movie session by ID: {}.", id);
+        return movieSession;
     }
 
     @Override
@@ -48,5 +50,6 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     @Override
     public void delete(Long id) {
         movieSessionDao.delete(id);
+        LOGGER.info("MovieSession by ID: {} was deleted.", id);
     }
 }

@@ -3,13 +3,18 @@ package cinema.service.impl;
 import cinema.dao.MovieSessionDao;
 import cinema.model.MovieSession;
 import cinema.service.MovieSessionService;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class MovieSessionServiceImplTest {
@@ -25,6 +30,16 @@ class MovieSessionServiceImplTest {
         expected = new MovieSession();
         expected.setId(ID);
         expected.setShowTime(LocalDateTime.now());
+    }
+
+    @Test
+    void findAvailableSessions() {
+        when(movieSessionDao.findAvailableSessions(ID,LocalDate.now()))
+                .thenReturn(List.of(expected));
+
+        List<MovieSession> actual = movieSessionService.findAvailableSessions(ID, LocalDate.now());
+
+        assertEquals(List.of(expected), actual);
     }
 
     @Test
@@ -67,10 +82,11 @@ class MovieSessionServiceImplTest {
     }
 
     @Test
-    void delete() {
-    }
+    void delete_ok() {
+        doNothing().when(movieSessionDao).delete(ID);
 
-    @Test
-    void findAvailableSessions() {
+        movieSessionService.delete(ID);
+
+        verify(movieSessionDao,times(1)).delete(ID);
     }
 }

@@ -50,7 +50,6 @@ class OrderServiceImplTest {
         expected.setOrderTime(LocalDateTime.now());
     }
 
-    // I rewrote the method a bit.
     @Test
     void completeOrder_ok() {
         ShoppingCart shoppingCart = new ShoppingCart();
