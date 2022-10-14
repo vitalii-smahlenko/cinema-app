@@ -1,5 +1,7 @@
 package cinema.dao.impl;
 
+import cinema.dao.CinemaHallDao;
+import cinema.dao.MovieDao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -68,14 +70,24 @@ class MovieSessionDaoImplTest extends AbstractTest {
                 () -> movieSessionDao.get(null).get());
     }
 
+
+
     @Test
     void findAvailableSessions() {
         Movie movie = new Movie();
-        movie.setId(ID);
+        MovieDao movieDao = new MovieDaoImpl(getSessionFactory());
+        movieDao.add(movie);
+
+        CinemaHall cinemaHall = new CinemaHall();
+        CinemaHallDao cinemaHallDao = new CinemaHallDaoImpl(getSessionFactory());
+        cinemaHallDao.add(cinemaHall);
+
         expected.setMovie(movie);
+        expected.setCinemaHall(cinemaHall);
+
         movieSessionDao.add(expected);
 
-        List<MovieSession> actual = movieSessionDao.findAvailableSessions(ID, DATE);
+        List<MovieSession> actual = movieSessionDao.findAvailableSessions(movie.getId(), DATE);
 
         assertEquals(List.of(expected), actual);
     }
