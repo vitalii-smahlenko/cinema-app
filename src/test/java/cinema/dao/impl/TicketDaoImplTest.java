@@ -1,5 +1,7 @@
 package cinema.dao.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import cinema.dao.AbstractTest;
 import cinema.dao.TicketDao;
 import cinema.model.CinemaHall;
@@ -8,7 +10,6 @@ import cinema.model.MovieSession;
 import cinema.model.Role;
 import cinema.model.Ticket;
 import cinema.model.User;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,8 +30,6 @@ class TicketDaoImplTest extends AbstractTest {
 
         expected = new Ticket();
         expected.setId(ID);
-        expected.setUser(new User());
-        expected.setMovieSession(new MovieSession());
     }
 
     @Test

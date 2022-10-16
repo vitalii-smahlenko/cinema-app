@@ -1,17 +1,16 @@
 package cinema.dao.impl;
 
-import cinema.dao.CinemaHallDao;
-import cinema.dao.MovieDao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import cinema.dao.AbstractTest;
 import cinema.dao.MovieSessionDao;
+import cinema.dao.CinemaHallDao;
+import cinema.dao.MovieDao;
 import cinema.exception.DataProcessingException;
 import cinema.model.CinemaHall;
 import cinema.model.Movie;
 import cinema.model.MovieSession;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -24,7 +23,6 @@ class MovieSessionDaoImplTest extends AbstractTest {
     private static final LocalDateTime SHOW_TIME
             = LocalDateTime.of(2022, Month.OCTOBER, 13,
             8, 30, 10);
-    private static final LocalDate DATE = LocalDate.of(2022, Month.OCTOBER, 13);
     private MovieSessionDao movieSessionDao;
     private MovieSession expected;
 
@@ -38,7 +36,6 @@ class MovieSessionDaoImplTest extends AbstractTest {
         movieSessionDao = new MovieSessionDaoImpl(getSessionFactory());
 
         expected = new MovieSession();
-        expected.setId(ID);
         expected.setShowTime(SHOW_TIME);
     }
 
@@ -53,7 +50,7 @@ class MovieSessionDaoImplTest extends AbstractTest {
     void get_ok() {
         movieSessionDao.add(expected);
 
-        MovieSession actual = movieSessionDao.get(ID).get();
+        MovieSession actual = movieSessionDao.get(expected.getId()).get();
 
         assertEquals(expected, actual);
     }
@@ -70,10 +67,8 @@ class MovieSessionDaoImplTest extends AbstractTest {
                 () -> movieSessionDao.get(null).get());
     }
 
-
-
     @Test
-    void findAvailableSessions() {
+    void findAvailableSessions_ok() {
         Movie movie = new Movie();
         MovieDao movieDao = new MovieDaoImpl(getSessionFactory());
         movieDao.add(movie);
@@ -87,7 +82,29 @@ class MovieSessionDaoImplTest extends AbstractTest {
 
         movieSessionDao.add(expected);
 
-        List<MovieSession> actual = movieSessionDao.findAvailableSessions(movie.getId(), DATE);
+        List<MovieSession> actual
+                = movieSessionDao.findAvailableSessions(movie.getId(), SHOW_TIME.toLocalDate());
+
+        assertEquals(List.of(expected), actual);
+    }
+
+    @Test
+    void findAvailableSessions_notOk() {
+        Movie movie = new Movie();
+        MovieDao movieDao = new MovieDaoImpl(getSessionFactory());
+        movieDao.add(movie);
+
+        CinemaHall cinemaHall = new CinemaHall();
+        CinemaHallDao cinemaHallDao = new CinemaHallDaoImpl(getSessionFactory());
+        cinemaHallDao.add(cinemaHall);
+
+        expected.setMovie(movie);
+        expected.setCinemaHall(cinemaHall);
+
+        movieSessionDao.add(expected);
+
+        List<MovieSession> actual
+                = movieSessionDao.findAvailableSessions(movie.getId(), SHOW_TIME.toLocalDate());
 
         assertEquals(List.of(expected), actual);
     }

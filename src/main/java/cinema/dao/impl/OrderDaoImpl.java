@@ -27,6 +27,8 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
             Query<Order> getByUser = session.createQuery(
                     "SELECT DISTINCT o FROM Order o "
                             + "join fetch o.tickets t "
+                            + "JOIN FETCH o.user u "
+                            + "JOIN FETCH u.roles "
                             + "join fetch t.movieSession ms "
                             + "join fetch ms.cinemaHall "
                             + "join fetch ms.movie "
