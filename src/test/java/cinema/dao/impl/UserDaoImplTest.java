@@ -1,5 +1,8 @@
 package cinema.dao.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import cinema.dao.AbstractTest;
 import cinema.dao.RoleDao;
 import cinema.dao.UserDao;
@@ -7,9 +10,7 @@ import cinema.exception.DataProcessingException;
 import cinema.model.Role;
 import cinema.model.Role.RoleName;
 import cinema.model.User;
-import java.util.NoSuchElementException;
 import java.util.Set;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

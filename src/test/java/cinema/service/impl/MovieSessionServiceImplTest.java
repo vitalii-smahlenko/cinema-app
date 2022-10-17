@@ -83,8 +83,6 @@ class MovieSessionServiceImplTest {
 
     @Test
     void delete_ok() {
-        doNothing().when(movieSessionDao).delete(ID);
-
         movieSessionService.delete(ID);
 
         verify(movieSessionDao,times(1)).delete(ID);

@@ -1,14 +1,14 @@
 package cinema.dao.impl;
 
-import cinema.exception.DataProcessingException;
-import java.util.List;
-import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import cinema.dao.AbstractTest;
 import cinema.dao.MovieDao;
+import cinema.exception.DataProcessingException;
 import cinema.model.Movie;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.List;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -25,6 +25,8 @@ class MovieSessionDaoImplTest extends AbstractTest {
             8, 30, 10);
     private MovieSessionDao movieSessionDao;
     private MovieSession expected;
+    private Movie movie;
+    private CinemaHall cinemaHall;
 
     @Override
     protected Class<?>[] entities() {
@@ -35,7 +37,21 @@ class MovieSessionDaoImplTest extends AbstractTest {
     void setUp() {
         movieSessionDao = new MovieSessionDaoImpl(getSessionFactory());
 
+        movie = new Movie();
+        movie.setTitle("The Shawshank Redemption");
+        movie.setDescription("American drama film written and directed by Frank Darabont");
+        MovieDao movieDao = new MovieDaoImpl(getSessionFactory());
+        movieDao.add(movie);
+
+        cinemaHall = new CinemaHall();
+        cinemaHall.setCapacity(20);
+        cinemaHall.setDescription("Red hall");
+        CinemaHallDao cinemaHallDao = new CinemaHallDaoImpl(getSessionFactory());
+        cinemaHallDao.add(cinemaHall);
+
         expected = new MovieSession();
+        expected.setMovie(movie);
+        expected.setCinemaHall(cinemaHall);
         expected.setShowTime(SHOW_TIME);
     }
 
@@ -69,38 +85,6 @@ class MovieSessionDaoImplTest extends AbstractTest {
 
     @Test
     void findAvailableSessions_ok() {
-        Movie movie = new Movie();
-        MovieDao movieDao = new MovieDaoImpl(getSessionFactory());
-        movieDao.add(movie);
-
-        CinemaHall cinemaHall = new CinemaHall();
-        CinemaHallDao cinemaHallDao = new CinemaHallDaoImpl(getSessionFactory());
-        cinemaHallDao.add(cinemaHall);
-
-        expected.setMovie(movie);
-        expected.setCinemaHall(cinemaHall);
-
-        movieSessionDao.add(expected);
-
-        List<MovieSession> actual
-                = movieSessionDao.findAvailableSessions(movie.getId(), SHOW_TIME.toLocalDate());
-
-        assertEquals(List.of(expected), actual);
-    }
-
-    @Test
-    void findAvailableSessions_notOk() {
-        Movie movie = new Movie();
-        MovieDao movieDao = new MovieDaoImpl(getSessionFactory());
-        movieDao.add(movie);
-
-        CinemaHall cinemaHall = new CinemaHall();
-        CinemaHallDao cinemaHallDao = new CinemaHallDaoImpl(getSessionFactory());
-        cinemaHallDao.add(cinemaHall);
-
-        expected.setMovie(movie);
-        expected.setCinemaHall(cinemaHall);
-
         movieSessionDao.add(expected);
 
         List<MovieSession> actual

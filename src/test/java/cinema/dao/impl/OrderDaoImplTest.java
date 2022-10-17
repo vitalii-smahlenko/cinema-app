@@ -1,5 +1,7 @@
 package cinema.dao.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import cinema.dao.AbstractTest;
 import cinema.dao.CinemaHallDao;
 import cinema.dao.MovieDao;
@@ -21,14 +23,14 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class OrderDaoImplTest extends AbstractTest {
     private static final Long ID = 1L;
     private static final LocalDateTime ORDER_TIME
-            = LocalDateTime.of(2022, Month.OCTOBER, 14, 00, 00, 00);
+            = LocalDateTime.of(2022, Month.OCTOBER, 14,
+            00, 00, 00);
     private OrderDao orderDao;
     private Order expected;
     private User user;
@@ -96,12 +98,11 @@ class OrderDaoImplTest extends AbstractTest {
     }
 
     @Test
-    void getOrdersHistory() {
+    void getOrdersHistory_ok() {
         orderDao.add(expected);
 
-        List<Order> ordersHistoryByUser = orderDao.getOrdersHistory(user);
-        Order actual = ordersHistoryByUser.get(0);
+        List<Order> actual = orderDao.getOrdersHistory(user);
 
-        assertEquals(expected, actual);
+        assertEquals(List.of(expected).toString(), actual.toString());
     }
 }
