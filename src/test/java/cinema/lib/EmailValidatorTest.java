@@ -1,5 +1,6 @@
-package cinema.lib;
+package cinema.controller.lib;
 
+import cinema.lib.EmailValidator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.validation.ConstraintValidatorContext;
@@ -14,7 +15,7 @@ class EmailValidatorTest {
 
     @BeforeEach
     void setUp() {
-        context = mock(ConstraintValidatorContext.class);
+        context = Mockito.mock(ConstraintValidatorContext.class);
         emailValidator = new EmailValidator();
     }
 
@@ -24,7 +25,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid(VALID_EMAIL, context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -33,7 +34,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid("invalid@emailcom", context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -42,7 +43,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid("invalidemail.com", context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -51,7 +52,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid(".invalid@email.com", context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -60,7 +61,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid("invalid@email.com.", context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -69,7 +70,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid("@email.com", context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -78,7 +79,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid("invalid@.com", context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -87,7 +88,7 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid("invalid@email.", context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -96,6 +97,6 @@ class EmailValidatorTest {
 
         boolean actual = emailValidator.isValid(null, context);
 
-        assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual);
     }
 }
