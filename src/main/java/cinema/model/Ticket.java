@@ -66,7 +66,6 @@ public class Ticket {
         return Objects.equals(this.id, other.id)
                 && Objects.equals(this.movieSession, other.movieSession)
                 && Objects.equals(this.user, other.user);
-
     }
 
     @Override

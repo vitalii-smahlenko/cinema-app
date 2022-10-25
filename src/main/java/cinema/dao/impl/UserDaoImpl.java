@@ -22,7 +22,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             Query<User> getUserByIdQuery = session.createQuery(
                     "FROM User u "
                             + "JOIN FETCH u.roles "

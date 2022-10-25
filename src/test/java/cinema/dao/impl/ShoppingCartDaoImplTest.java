@@ -1,6 +1,8 @@
 package cinema.dao.impl;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import cinema.dao.AbstractTest;
@@ -106,7 +108,14 @@ class ShoppingCartDaoImplTest extends AbstractTest {
 
         ShoppingCart actual = shoppingCartDao.getByUser(user);
 
-        assertEquals(expected.toString(), actual.toString());
+        assertEquals(expected.getUser(), actual.getUser());
+        assertEquals(expected.getId(), actual.getId());
+//        assertEquals(expected.getTickets(), actual.getTickets());
+        assertIterableEquals(expected.getTickets(), actual.getTickets());
+//        assertArrayEquals(expected.getTickets().toArray(), actual.getTickets().toArray());
+
+
+//        assertEquals(expected, actual);
     }
 
     @Test

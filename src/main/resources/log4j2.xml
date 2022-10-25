@@ -4,7 +4,7 @@
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %c:%L - %msg%n"/>
         </Console>
-        <File name="LogToFile" fileName="add\path\to\directory\here\taxi_app_logs.log">
+        <File name="LogToFile" fileName="logs/logs.log" >
             <PatternLayout>
                 <Pattern>%d %p %c:%L %m%n</Pattern>
             </PatternLayout>
@@ -12,12 +12,12 @@
     </Appenders>
     <Loggers>
         <Logger name="cinema" level="info" additivity="false">
-            <Appender-ref ref="LogToConsole"/>
             <Appender-ref ref="LogToFile"/>
+            <Appender-ref ref="LogToConsole"/>
         </Logger>
         <Root level="error">
-            <Appender-ref ref="LogToConsole"/>
             <Appender-ref ref="LogToFile"/>
+            <Appender-ref ref="LogToConsole"/>
         </Root>
     </Loggers>
 </Configuration>

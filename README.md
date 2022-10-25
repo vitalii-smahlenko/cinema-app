@@ -47,7 +47,7 @@ Project description
 - Install Apache Tomcat, I used version 9.0.50
   Apache Tomcat 9.0.50 you can download here https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.50/bin/
 - In order to configure logging into the project. You need to specify the path to the directory
-  where you want to store logs. 7 lines in the ***src/main/resources/log4j2.xml***
+  where you want to store logs. 7 lines in the ***src/main/resources/log4j2.xml*** or leave as is then the logs will be stored in ***logs/logs.log***
 
 ## The application is developed in N-Tier Architecture 
 
