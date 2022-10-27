@@ -25,9 +25,11 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie get(Long id) {
-        LOGGER.info("Found movie by ID: {}",id);
-        return movieDao.get(id).orElseThrow(
+        LOGGER.info("Method get was called with ID: {}", id);
+        Movie movie = movieDao.get(id).orElseThrow(
                 () -> new RuntimeException("Can't get movie by id " + id));
+        LOGGER.info("Found movie by ID: {}", id);
+        return movie;
     }
 
     @Override

@@ -33,9 +33,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setPassword(password);
         Role role = roleService.getByName("User");
         user.setRoles(Set.of(role));
-        userService.add(user);
+        user = userService.add(user);
         shoppingCartService.registerNewShoppingCart(user);
-        LOGGER.info("Registered {} ", user.toString());
+        LOGGER.info("Registered {} ", user);
         return user;
     }
 }

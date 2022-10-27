@@ -2,6 +2,7 @@ package cinema.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -69,5 +70,26 @@ public class Order {
                 + ", tickets=" + tickets
                 + ", orderTime=" + orderTime
                 + ", user=" + user + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Order other = (Order) o;
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
+        result = 31 * result + (orderTime != null ? orderTime.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
     }
 }

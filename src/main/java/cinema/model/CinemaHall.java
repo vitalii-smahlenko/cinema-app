@@ -1,5 +1,6 @@
 package cinema.model;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,5 +46,25 @@ public class CinemaHall {
                 + "id=" + id
                 + ", capacity=" + capacity
                 + ", description='" + description + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        CinemaHall other = (CinemaHall) o;
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + capacity;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }

@@ -24,9 +24,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getByName(String roleName) {
+        LOGGER.info("Method getByName with roleName: {}", roleName);
         Role role = roleDao.getByName(roleName).orElseThrow(()
                 -> new NoSuchElementException("Cant get role by roleName: " + roleName));
-        LOGGER.info("Found role {} by role name {}.", role.toString(), roleName);
+        LOGGER.info("Found role {} by role name {}.", role, roleName);
         return role;
     }
 }

@@ -1,6 +1,7 @@
 package cinema.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,5 +65,26 @@ public class MovieSession {
                 + ", movie=" + movie
                 + ", cinemaHall=" + cinemaHall
                 + ", showTime=" + showTime + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        MovieSession other = (MovieSession) o;
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (movie != null ? movie.hashCode() : 0);
+        result = 31 * result + (cinemaHall != null ? cinemaHall.hashCode() : 0);
+        result = 31 * result + (showTime != null ? showTime.hashCode() : 0);
+        return result;
     }
 }

@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +36,7 @@ public class MovieController {
     @PostMapping
     public MovieResponseDto add(@RequestBody @Valid MovieRequestDto requestDto) {
         Movie movie = movieService.add(movieRequestDtoMapper.mapToModel(requestDto));
-        LOGGER.info("Added {}", movie.toString());
+        LOGGER.info("Added {}", movie);
         return movieResponseDtoMapper.mapToDto(movie);
     }
 

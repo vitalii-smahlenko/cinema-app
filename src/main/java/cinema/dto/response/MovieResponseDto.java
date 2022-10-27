@@ -1,5 +1,7 @@
 package cinema.dto.response;
 
+import java.util.Objects;
+
 public class MovieResponseDto {
     private Long id;
     private String title;
@@ -27,5 +29,25 @@ public class MovieResponseDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        MovieResponseDto other = (MovieResponseDto) o;
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }

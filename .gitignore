@@ -4,6 +4,7 @@
 *.ear
 *.jar
 *.log
+*.logs
 *.rar
 *.tar.gz
 *.war
