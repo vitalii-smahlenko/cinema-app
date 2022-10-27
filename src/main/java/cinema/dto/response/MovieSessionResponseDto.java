@@ -55,15 +55,11 @@ public class MovieSessionResponseDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MovieSessionResponseDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         MovieSessionResponseDto other = (MovieSessionResponseDto) o;
-        return Objects.equals(this.movieId, other.movieId)
-                && Objects.equals(this.movieSessionId, other.movieSessionId)
-                && Objects.equals(this.movieTitle, other.movieTitle)
-                && Objects.equals(this.showTime, other.showTime)
-                && Objects.equals(this.cinemaHallId, other.cinemaHallId);
+        return Objects.equals(this.movieId, other.movieId);
     }
 
     @Override

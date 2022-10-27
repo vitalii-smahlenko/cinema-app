@@ -67,14 +67,11 @@ public class User {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         User other = (User) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.email, other.email)
-                && Objects.equals(this.password, other.password)
-                && Objects.equals(this.roles, other.roles);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

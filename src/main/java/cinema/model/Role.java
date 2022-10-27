@@ -52,12 +52,11 @@ public class Role {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Role)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         Role role = (Role) o;
-        return Objects.equals(this.id, role.id)
-                && Objects.equals(this.roleName, role.roleName);
+        return Objects.equals(this.id, role.id);
     }
 
     @Override

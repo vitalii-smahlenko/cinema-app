@@ -72,14 +72,11 @@ public class MovieSession {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MovieSession)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         MovieSession other = (MovieSession) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.cinemaHall, other.cinemaHall)
-                && Objects.equals(this.movie, other.movie)
-                && Objects.equals(this.showTime, other.showTime);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

@@ -28,12 +28,11 @@ public class ShoppingCartResponseDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ShoppingCartResponseDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         ShoppingCartResponseDto other = (ShoppingCartResponseDto) o;
-        return Objects.equals(this.userId, other.userId)
-                && Objects.equals(this.ticketIds, other.ticketIds);
+        return Objects.equals(this.userId, other.userId);
     }
 
     @Override

@@ -54,13 +54,11 @@ public class Movie {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Movie)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         Movie movie = (Movie) o;
-        return Objects.equals(id, movie.id)
-                && Objects.equals(title, movie.title)
-                && Objects.equals(description, movie.description);
+        return Objects.equals(id, movie.id);
     }
 
     @Override

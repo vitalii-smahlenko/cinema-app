@@ -77,14 +77,11 @@ public class Order {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Order)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         Order other = (Order) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.user, other.user)
-                && Objects.equals(this.tickets, other.tickets)
-                && Objects.equals(this.orderTime, other.orderTime);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

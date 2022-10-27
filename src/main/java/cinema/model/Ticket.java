@@ -59,13 +59,11 @@ public class Ticket {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Ticket)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         Ticket other = (Ticket) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.movieSession, other.movieSession)
-                && Objects.equals(this.user, other.user);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

@@ -36,13 +36,11 @@ public class MovieResponseDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MovieResponseDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         MovieResponseDto other = (MovieResponseDto) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.title, other.title)
-                && Objects.equals(this.description, other.description);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

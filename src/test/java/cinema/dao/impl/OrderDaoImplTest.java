@@ -1,6 +1,5 @@
 package cinema.dao.impl;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import cinema.dao.AbstractTest;
@@ -24,7 +23,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -105,15 +103,6 @@ class OrderDaoImplTest extends AbstractTest {
 
         List<Order> actual = orderDao.getOrdersHistory(user);
 
-
-
-        assertIterableEquals(expected.getTickets(), actual.get(0).getTickets());
-
-//        assertEquals(expected.getTickets(), actual.get(0).getTickets());
-
-
-//        assertIterableEquals(List.of(expected), actual);
-//        assertEquals(List.of(expected), actual);
-//        assertArrayEquals(new Object[]{expected}, actual.toArray());
+        assertEquals(List.of(expected), actual);
     }
 }

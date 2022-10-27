@@ -47,14 +47,11 @@ public class OrderResponseDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof OrderResponseDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         OrderResponseDto other = (OrderResponseDto) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.userId, other.userId)
-                && Objects.equals(this.ticketIds, other.ticketIds)
-                && Objects.equals(this.orderTime, other.orderTime);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

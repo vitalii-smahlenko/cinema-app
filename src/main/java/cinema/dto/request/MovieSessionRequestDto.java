@@ -42,7 +42,7 @@ public class MovieSessionRequestDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MovieSessionRequestDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         MovieSessionRequestDto other = (MovieSessionRequestDto) o;

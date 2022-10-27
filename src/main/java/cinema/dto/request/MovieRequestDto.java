@@ -31,7 +31,7 @@ public class MovieRequestDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MovieRequestDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         MovieRequestDto other = (MovieRequestDto) o;

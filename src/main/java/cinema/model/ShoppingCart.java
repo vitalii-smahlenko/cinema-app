@@ -63,13 +63,11 @@ public class ShoppingCart {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ShoppingCart)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         ShoppingCart other = (ShoppingCart) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.tickets, other.tickets)
-                && Objects.equals(this.user, other.user);
+        return Objects.equals(this.id, other.id);
 
     }
 

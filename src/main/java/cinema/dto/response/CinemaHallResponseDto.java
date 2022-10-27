@@ -36,13 +36,11 @@ public class CinemaHallResponseDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CinemaHallResponseDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         CinemaHallResponseDto other = (CinemaHallResponseDto) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.capacity, other.capacity)
-                && Objects.equals(this.description, other.description);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

@@ -27,12 +27,11 @@ public class UserResponseDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof UserResponseDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         UserResponseDto other = (UserResponseDto) o;
-        return Objects.equals(this.id, other.id)
-                && Objects.equals(this.email, other.email);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

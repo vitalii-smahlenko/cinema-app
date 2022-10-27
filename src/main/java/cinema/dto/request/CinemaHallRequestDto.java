@@ -31,7 +31,7 @@ public class CinemaHallRequestDto {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CinemaHallRequestDto)) {
+        if (getClass() != o.getClass()) {
             return false;
         }
         CinemaHallRequestDto other = (CinemaHallRequestDto) o;
