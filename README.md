@@ -73,3 +73,5 @@ Project description
   - Core
   - Security
   - Web MVC
+- Junit 5
+- Mockito
